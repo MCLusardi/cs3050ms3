@@ -43,6 +43,33 @@ int main(void){
     }else{
         printf("error : could not open file\n");
     }
+
+    char command;
+    int parameter1;
+    int parameter2;
+    while(!feof(fp)){
+        fscanf(fp, "%c", &command);
+        if (command == 'E') {
+            printf("Command was E\n");
+            fscanf(fp, "\n");
+        }
+        else if (command == 'I') {
+            printf("Command was I\n");
+            fscanf(fp, "%d\n", &parameter1);
+            printf("Parameter is %d\n", parameter1);
+        }
+        else if (command == 'C') {
+            printf("Command was C\n");
+            fscanf(fp, "%d %d\n", &parameter1, &parameter2);
+            printf("Parameters are %d and %d\n", parameter1, parameter2);
+        }
+        else if (command == 'D'){
+            printf("Command was D\n");
+            fscanf(fp, "%d\n", &parameter1);
+            printf("Parameter is %d\n", parameter1);
+        }
+    }
+    
 }
 
 int Parent(int i){
