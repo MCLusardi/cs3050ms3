@@ -28,7 +28,7 @@ int main(void){
     }
     
     fscanf(fp, "%d\n", &heapsize);
-    int *A = malloc((heapsize +1) *sizeof(int)); //malloc extra space to account for indexing from 1
+    int *A = malloc((1001) *sizeof(int)); //malloc extra space to account for indexing from 1
 
     for(int i = 1; i <= heapsize; i++){
         fscanf(fp, "%d\n", &A[i]);
@@ -50,6 +50,7 @@ int main(void){
     while(!feof(fp)){
         fscanf(fp, "%c", &command);
         if (command == 'E') {
+            printf("Command was E\n");
             fscanf(fp, "\n");
             HeapExtractMax(A, &heapsize);
             for(int i = 1; i <=heapsize; i++){
@@ -59,7 +60,10 @@ int main(void){
         else if (command == 'I') {
             printf("Command was I\n");
             fscanf(fp, "%d\n", &parameter1);
-            printf("Parameter is %d\n", parameter1);
+            MaxHeapInsert(A, parameter1, &heapsize);
+            for(int i = 1; i <=heapsize; i++){
+                printf("%d\n", A[i]);
+            }
         }
         else if (command == 'C') {
             printf("Command was C\n");
@@ -147,7 +151,7 @@ void HeapChangeKey(int* A, int i, int key){
 }
 
 void MaxHeapInsert(int* A, int key, int *heapsize){
-    heapsize[0] = *(heapsize)+1;
-    A[*(heapsize)] = -1000; // pseudo said negative infinity ??
+    (*(heapsize))++;
+    A[*(heapsize)] = -1;
     HeapChangeKey(A, *heapsize, key);
 }
