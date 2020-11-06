@@ -23,25 +23,25 @@ int main(void){
     scanf("%s", filename);
 
     FILE *fp = fopen(filename, "r");
-    if(fp){
-        fscanf(fp, "%d\n", &heapsize);
-        int *A = malloc((heapsize +1) *sizeof(int)); //malloc extra space to account for indexing from 1
+    if(fp == NULL){
+        printf("File cannot be accessed\n");
+    }
+    
+    fscanf(fp, "%d\n", &heapsize);
+    int *A = malloc((heapsize +1) *sizeof(int)); //malloc extra space to account for indexing from 1
 
-        for(int i = 1; i <= heapsize; i++){
-            fscanf(fp, "%d\n", &A[i]);
-        }
+    for(int i = 1; i <= heapsize; i++){
+        fscanf(fp, "%d\n", &A[i]);
+    }
 
-        for(int i = 1; i <=heapsize; i++){
-            printf("%d\n", A[i]);
-        }
+    for(int i = 1; i <=heapsize; i++){
+        printf("%d\n", A[i]);
+    }
 
-        BuildMaxHeap(A, heapsize);
-        printf("finished building heap\n");
-        for(int i = 1; i <=heapsize; i++){
-            printf("%d\n", A[i]);
-        }
-    }else{
-        printf("error : could not open file\n");
+    BuildMaxHeap(A, heapsize);
+    printf("finished building heap\n");
+    for(int i = 1; i <=heapsize; i++){
+        printf("%d\n", A[i]);
     }
 
     char command;
@@ -50,8 +50,11 @@ int main(void){
     while(!feof(fp)){
         fscanf(fp, "%c", &command);
         if (command == 'E') {
-            printf("Command was E\n");
             fscanf(fp, "\n");
+            HeapExtractMax(A, &heapsize);
+            for(int i = 1; i <=heapsize; i++){
+                printf("%d\n", A[i]);
+            }
         }
         else if (command == 'I') {
             printf("Command was I\n");
@@ -117,7 +120,8 @@ int HeapExtractMax(int* A, int *heapsize){
     }
     int max = A[1];
     A[1] = A[*(heapsize)];
-    heapsize[0] = *(heapsize)-1; 
+    (*(heapsize))--;
+    //heapsize[0] = *(heapsize)-1; 
     MaxHeapify(A, 1, *(heapsize));
     return max;
 }
